@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
+    public int currentNumber;
     public SpriteRenderer playerSpriteNumber;
     //speed of the player to move around
     public float speed;
@@ -23,12 +25,14 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        
         isMove = true;
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
+        currentNumber = Convert.ToInt32(playerSpriteNumber.sprite.name);
         Movement();
     }
 
@@ -81,13 +85,5 @@ public class Player : MonoBehaviour
     private void OnMouseDrag()
     {
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - difference;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("enemy");
-
-        //change sprite
-        
     }
 }

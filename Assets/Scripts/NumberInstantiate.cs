@@ -6,7 +6,9 @@ public class NumberInstantiate : MonoBehaviour
 {
     public float timeTakenToDisapear;
     public float timeTakenToInstantiate;
-    public float minValueX, maxValueX, minValueY, maxValueY;
+
+    float xValue = 7.9f, topYValue = 1.8f, bottomYValue = 1.8f;
+
     public GameObject[] number;
 
     // Start is called before the first frame update
@@ -24,19 +26,24 @@ public class NumberInstantiate : MonoBehaviour
     {
         yield return new WaitForSeconds(timeTakenToInstantiate);
 
-        var xposition = Random.Range(minValueX, maxValueX);
-        var yposition = Random.Range(minValueY, maxValueY);
-        var position = new Vector2(xposition, yposition);
+        //top 
+        var topXposition = Random.Range(-xValue, xValue);
+        var topYposition = Random.Range(topYValue, 4);
+        var topPosition = new Vector2(topXposition, topYposition);
+
+        //bottom
+        var bottomXposition = Random.Range(-xValue, xValue);
+        var bottomYposition = Random.Range(-4, bottomYValue);
+        var bottomPosition = new Vector2(bottomXposition, bottomYposition);
 
         //use when the numbers or objects are  many - 0-9
         int randomnumbers = Random.Range(0, number.Length);
-        GameObject gameObject = Instantiate(number[randomnumbers], position, Quaternion.identity);
+
+        GameObject gameObject = Instantiate(number[randomnumbers], topPosition, Quaternion.identity);
 
         StartCoroutine(RandomNumbers());
 
         yield return new WaitForSeconds(timeTakenToDisapear);
         Destroy(gameObject);
-
-        
     }
 }
